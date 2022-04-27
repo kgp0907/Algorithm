@@ -1,0 +1,74 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+#define MAX 20010
+#define INF 987654321
+using namespace std;
+
+int v, e, start;
+int dist[MAX];
+vector<pair<int, int>> map[MAX];
+
+void input() {
+	cin >> v >> e >> start;
+	for (int i = 0; i < e; i++) {
+		int a, b, c;
+		cin >> a >> b >> c;
+		map[a].push_back({ b,c });// a에서 b로가는 가중치 c	map[5] 1 1
+	}
+	for (int i = 1; i <= v; i++) {	//0을 제외하고 inf로 설정해둠.
+		dist[i] = INF;
+	}
+}
+
+void dijkstra() {
+	priority_queue<pair<int, int>> pq;
+	pq.push({ 0,start });
+	dist[start] = 0;
+	while (!pq.empty())
+	{
+		int cost = -pq.top().first;	// 시작노드로 가는 비용
+		int cur = pq.top().second;  // 시작노드로 가는 경로
+		//cout <<"cost" << cost << ' ' << cur << '\n';
+		pq.pop();					
+		for (int i = 0; i < map[cur].size(); i++) {//
+			int next = map[cur][i].first;	//2로가는 비용
+			int ncost = map[cur][i].second; //2
+		//	cout << "next ncost " << next << " " << ncost<<" dist" <<dist[next] << '\n';
+		if (dist[next] > cost + ncost) {	//inf 0
+			dist[next] = cost + ncost;		//dist 0= 0
+			pq.push({ -dist[next],next }); // 0,
+			//cout <<i<<"번재 "<< - dist[next] << ' ' << next << "\n";
+	}
+		else {
+		//	cout << "조건부합x" << '\n';//dist2 = 2	 p2,2
+										//dist3=3     3 3    -7 4
+
+		}
+		// 01로 시작함. 가장낮은 1 2 2부터 들어감. 0>2라서 dist 2엔 2가 들어감. -2 2 삽입
+		// 3 3 이 들어올차례 dist 3엔 3이 들어감	-3 3 삽입
+		//-2 2 이 우선순위가 높으므로 2 2가 들어옴. dist 3은 6보다 작은 3이라 조건부합 x 
+		//아직 i가 안끝났음으로 4 5 가 들어오고 4는 inf값이라 cost 2+5가 들어와서 7이 됨.
+		//남은 -3 3이 들어오고 4 6이 들어오지만 6+3은 9기때문에 7보다 크므로 x
+		//1 1은 이미 dist[1]이 0이므로 inf값이 나음.
+
+
+	}
+	}
+
+}
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(0);
+	cout.tie(0);
+	input();
+	dijkstra();
+	for (int i = 1; i <= v; i++) {		//과정을 마치고 infg일경우 그대로출력, 아니면 값 출력
+		if (dist[i] == INF)
+			cout << "INF" << '\n';
+		else
+			cout << dist[i] << '\n';
+	}
+	return 0;
+}

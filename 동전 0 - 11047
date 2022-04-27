@@ -1,0 +1,33 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+#include<algorithm>
+using namespace std;
+int n, k;
+int ans=0;
+int hap = 0;
+int draw = 0;
+vector<int> vec;
+int main() {
+	cin >> n >> k;
+
+	for (int i = 0; i < n; i++) {
+		int a;
+		cin >> a;
+		vec.push_back(a);
+	}
+	sort(vec.begin(), vec.end(),greater<int>());
+	int dcc = k;
+
+	while (k>0)
+	{
+		if (k < vec[draw])
+			draw++;
+		else
+		{
+			k -= vec[draw];
+			ans++;
+		}
+	}
+	cout << ans;
+}

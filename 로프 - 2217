@@ -1,0 +1,34 @@
+#include <iostream>
+#include<vector>
+#include <algorithm>
+
+using namespace std;
+
+const int MAX = 100001;
+vector<int> vec;
+int w, k = 0;
+int hap = 0;
+int gop = 0;
+int count2 = 1;
+int main() {
+    cin.tie(NULL);
+	cin.sync_with_stdio(false);
+	cin >> w;
+	for (int i = 0; i < w; i++) {
+		cin >> k;
+		vec.push_back(k);
+	}
+
+	sort(vec.begin(), vec.end(), greater<int>());
+
+	for (int i = 0; i <w; i++) {
+		gop = vec[i] * count2;
+
+		if (hap < gop) {
+			hap = gop;
+		}
+		count2++;
+	}
+
+	cout << hap;
+}

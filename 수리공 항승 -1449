@@ -1,0 +1,39 @@
+//#define _CRT_SECURE_NO_WARNINGS
+#include<cstdio>
+#include<vector>
+#include<algorithm>
+#include<iostream>
+#include<cstring>
+#include<queue>
+using namespace std;
+int a;
+vector<int> vec;
+int cnt=0;
+int n, m;
+int arr[1001];
+priority_queue<int,vector<int>,greater<int>> pq;
+
+int main() {
+	cin >> n >> m;
+
+	for (int i = 0; i < n; i++) {
+		cin >> a;
+		pq.push(a);
+	}
+
+
+
+
+	while (!pq.empty())
+	{
+		int hap = pq.top() + m - 1;
+		for (int i = 0; i < m; i++) {
+			if (pq.top() <= hap&&!pq.empty()) {
+				pq.pop();
+			}
+		}
+		cnt++;
+	}
+
+	cout << cnt;
+}

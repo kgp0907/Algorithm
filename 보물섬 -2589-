@@ -1,0 +1,89 @@
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <queue>
+using namespace std;
+
+int H, W;
+const int MAX = 51;
+char map[MAX][MAX];      //지도
+bool visited[MAX][MAX];  //방문 표시
+int path[MAX][MAX];      //경로 
+int dy[] = { 0,0,-1,1 };
+int dx[] = { -1,1,0,0 };
+queue<pair<int, int>> q;
+int max_len = 0;         //경로 중 최댓값
+
+
+
+
+
+
+void reset() {          // 배열을 리셋
+	for (int i = 0; i < H; i++) {
+		for (int j = 0; j < W; j++) {
+			visited[i][j] = 0;
+			path[i][j] = 0;
+		}
+	}
+	max_len = 0;
+}
+
+int bfs(int y, int x) {
+
+	path[y][x] = 1;
+	q.push({ y,x });
+	visited[y][x] = true;
+
+	while (!q.empty())
+	{
+		y = q.front().first;
+		x = q.front().second;
+		q.pop();
+		for (int i = 0; i < 4; i++) {
+			int nx = x + dx[i];
+			int ny = y+dy[i];
+
+			if (ny < 0 || nx<0 || ny >= H || nx>=W)
+				continue;
+			if (visited[ny][nx] == false && map[ny][nx] == 'L') {
+				visited[ny][nx] = true;
+				path[ny][nx] = path[y][x] + 1;
+				q.push({ ny,nx });
+		
+				if (max_len < path[ny][nx]) {   //최대값을 구해서 리턴시켜줌
+					max_len = path[ny][nx];
+				}
+			}
+		}
+	}
+	return max_len - 1;
+
+
+}
+
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cin >> H >> W;
+
+	for (int i = 0; i < H; i++) {
+		for (int j = 0; j < W; j++) {
+			cin >> map[i][j];
+		}
+	}
+	int ans = 0;
+	for (int i = 0; i < H; i++) {
+		for (int j = 0; j < W; j++) { 
+			if (map[i][j] == 'L') {     //육지인경우 bfs를 실행
+				int temp = bfs(i, j);     // bfs결과값(최대값)을 받아옴
+				if (temp > ans)           // 이전의 값들보다 클경우 답에 입력.
+					ans = temp;             // 보물은 두 육지 사이간 가장 먼곳에 있으므로.
+			}
+			reset();
+		}
+	}
+
+	cout << ans;
+}

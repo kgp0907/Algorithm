@@ -14,11 +14,6 @@ int dx[] = { -1,1,0,0 };
 queue<pair<int, int>> q;
 int max_len = 0;         //경로 중 최댓값
 
-
-
-
-
-
 void reset() {          // 배열을 리셋
 	for (int i = 0; i < H; i++) {
 		for (int j = 0; j < W; j++) {
@@ -58,10 +53,7 @@ int bfs(int y, int x) {
 		}
 	}
 	return max_len - 1;
-
-
 }
-
 
 int main() {
 	ios::sync_with_stdio(false);

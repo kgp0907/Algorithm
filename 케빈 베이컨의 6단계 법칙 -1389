@@ -1,13 +1,10 @@
 #include <iostream>
-
 #include <algorithm>
-
 using namespace std;
 const int INF = 987654321;
 const int MAX = 100 + 1;
 int N, M;
 int graph[MAX][MAX];
-
 
 void floyd(void) {
 	for (int k = 1; k <= N; k++) {
@@ -23,16 +20,11 @@ void floyd(void) {
 					else {
 						graph[i][j] = min(graph[i][j], graph[k][j] + graph[i][k]);
 					}
-
-
-			
 				}
 			}
 		}
 	}
 }
-
-
 int main(void)
 {
 	cin >> N >> M;

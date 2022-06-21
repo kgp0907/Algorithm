@@ -1,0 +1,44 @@
+#include <iostream>
+#include <algorithm>
+#include<vector>
+using namespace std;
+
+int n, m;
+int a;
+int arr[1000];
+bool map[1000];
+vector<int> vec;
+
+void bfs(int cnt) {
+
+	if (cnt == m) {
+		for (int i = 0; i < m; i++) {
+			cout << arr[i] << " ";
+		}
+		cout << '\n';
+		return;
+	}
+
+	for (int i = 0; i <vec.size(); i++) {
+		if (map[i] == false) {
+			map[i] = true;
+			arr[cnt] = vec[i];
+			bfs(cnt+1);
+			map[i] = false;
+		}
+	}
+	
+}
+
+int main() {
+	cin >> n >> m;
+
+	for (int i = 0; i < n; i++) {
+		cin >> a;
+	//	arr[i] = a;
+		vec.push_back(a);
+	}
+	sort(vec.begin(), vec.end());
+
+	bfs(0);
+}

@@ -1,0 +1,45 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+#include<iostream>
+using namespace std;
+
+bool isRight(char c,int distance,int num){
+    if(c=='=')
+        return distance==num;
+    else if(c=='>')
+        return distance>num;
+    else if(c=='<')
+        return distance<num;
+}
+
+int solution(int n, vector<string> data) {
+    int answer = 0;
+    string friends="ACFJMNRT";
+    
+    do{
+        bool check=true;
+        for(string text:data){
+           char firstFriends=text[0];
+        char secondFriends=text[2];
+        char comp=text[3];
+        int num=text[4]-'0';
+        int diff=friends.find(firstFriends)-friends.find(secondFriends);
+        int distance=abs(diff)-1;
+        
+        if(isRight(comp,distance,num)) continue;
+        check=false;
+        break; 
+        }
+          if(check) answer++;
+    }while(next_permutation(friends.begin(),friends.end()));
+   return answer;
+}
+
+int main() {
+    vector<string> data;
+    data.push_back("N~F=0");
+    data.push_back("N~F=0");
+    cout << solution(2, data);
+    
+}
